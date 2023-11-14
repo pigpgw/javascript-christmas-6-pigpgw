@@ -6,9 +6,9 @@ const OutputView = {
 
     },
 
-    printMenu() {
+    printMenu(userOrderList) {
         Console.print("<주문 메뉴>");
-        // ...
+        
     }
     // ...
 }
