@@ -58,7 +58,7 @@ const InputView = {
                 return menu.price;
         }
         }
-    }
+    },
 
 
 

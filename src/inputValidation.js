@@ -2,8 +2,6 @@ import ERROR from './error.js';
 import Menu from './Menu.js';
 
 const inputValidation = {
-    // ... (existing code)
-
     checkNumber(input) {
         if (!Number(input)) {
             throw ERROR.NOT_A_NUMBER;
@@ -11,7 +9,7 @@ const inputValidation = {
     },
 
     checkLength(input) {
-        if (Number(input) < 1 || Number(input) > 31) {
+        if (Number(input) < 1 || Number(input) > 26) {
             throw ERROR.OVER_RANGE_DATE;
         }
     },

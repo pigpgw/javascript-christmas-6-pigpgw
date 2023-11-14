@@ -13,7 +13,8 @@ class App {
   async run() {
     OutputView.printServiceStart();
     await this.getUserInput();
-    OutputView.printMenu();
+    OutputView.printMenu(this.selectMenuList);
+    OutputView.printBeforeDiscount(this.beforeDiscount);
   }
 
   async getUserInput(){

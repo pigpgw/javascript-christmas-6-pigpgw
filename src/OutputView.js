@@ -8,9 +8,18 @@ const OutputView = {
 
     printMenu(userOrderList) {
         Console.print("<주문 메뉴>");
-        
+        userOrderList.forEach(menu => {
+            Console.print(`${menu.name} ${menu.quantity}개`);
+        });
+    },
+
+    printBeforeDiscount(totalPrice){
+        Console.print("<할인 전 총주문 금액>");
+        Console.print(`${totalPrice}원`);
     }
-    // ...
+
+    
+    
 }
 
 export default OutputView;
