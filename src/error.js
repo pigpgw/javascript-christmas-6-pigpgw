@@ -7,4 +7,4 @@ const ERROR = {
     INVALID_MENU_LENGTH: { message: "[ERROR[ : 잘못된 음식 이름입니다." }
 };
 
-export default ERROR;
+export default ERROR; 

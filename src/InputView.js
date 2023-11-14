@@ -56,7 +56,7 @@ const InputView = {
             const menu = Menu[category].find(item => item.name === itemName);
             if (menu) {
                 return menu.price;
-        }
+            }
         }
     },
 

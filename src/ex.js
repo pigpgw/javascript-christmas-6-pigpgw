@@ -2,18 +2,16 @@ import { Random, Console } from '@woowacourse/mission-utils';
 import ERROR from './error.js';
 import Menu from './Menu.js'; 
 
-const userSelectMenu = [];
-const totalPrice = 0;
 
 
-console.log(Menu.main[0].name);
+const sfood = "해산물파스타";
 
-Menu.appetizer.forEach(item => {
-    console.log(item);
+const userSelectMenu = [
+    { name: '해산물파스타', quantity: 2, price: 35000 },
+    { name: '레드와인', quantity: 1, price: 60000 }
+]
+
+userSelectMenu.forEach(menu => {
+    Console.print(`${menu.name} ${menu.quantity}개`);
 });
 
-const menuName = '초코케이크';
-
-const menuCategory = Menu[category].find(item => item.name === itemName);
-
-console.log(menuCategory);

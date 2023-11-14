@@ -8,6 +8,7 @@ const OutputView = {
 
     printMenu(userOrderList) {
         Console.print("<주문 메뉴>");
+        console.log("userOrderList",userOrderList);
         userOrderList.forEach(menu => {
             Console.print(`${menu.name} ${menu.quantity}개`);
         });
@@ -18,7 +19,7 @@ const OutputView = {
         Console.print(`${totalPrice}원`);
     }
 
-    
+
     
 }
 
