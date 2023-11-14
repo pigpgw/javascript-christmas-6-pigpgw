@@ -6,23 +6,35 @@ import Menu from './Menu.js';
 
 const Event = {
 
+    totalDiscountCalculator(reserveDay,userOrderList){
+        let totalDiscount = 0;
+        totalDiscount += this.dDayDiscount(reserveDay);
+        totalDiscount += this.aWeekDiscount(reserveDay,userOrderList);
+        totalDiscount += this.checkStar(reserveDay);
+
+        console.log("totalDiscount",totalDiscount);
+    },
+
     dDayDiscount(reserveDay){
-        const discountMoney = 1000 + reserveDay * 100;
-        console.log("크리스마스 디데이 할인",discountMoney);
-        return discountMoney;  
+        if (reserveDay <= 25) {
+            const discountMoney = 1000 + reserveDay * 100;
+            console.log("크리스마스 디데이 할인", discountMoney);
+            return discountMoney;  
+        }
     },
 
     // 1일 금요일
     aWeekDiscount(reserveDay,userOrderList){
+        let discountMoney = 0;
         const watDay = reserveDay % 7;
-        let totalDiscount = 0;
-        totalDiscount += this.applyWeekDiscount(watDay,userOrderList);
-        console.log("totalDiscount",totalDiscount);
-        return totalDiscount;
+        // 평일 주말 할인 
+        discountMoney += this.applyWeekDiscount(watDay,userOrderList);
+        console.log("aweek discountMoney", discountMoney);
+        return discountMoney;
     },
 
     applyWeekDiscount(inputDay,userOrderList){
-        let totalDiscount = 0;
+        let discountMoney = 0;
         // let appetizerCount = 0;
         let dessertCount = 0;
         let mainCount = 0;
@@ -31,7 +43,6 @@ const Event = {
         console.log("inputDay",inputDay);
         console.log("userOrderList", userOrderList[0].name);
         
-
         userOrderList.forEach(item => {
             const ban = this.checkTypeOfFood(item.name);
             console.log("check", ban);
@@ -45,35 +56,35 @@ const Event = {
             // if (this.checkTypeOfFood(item.name) === "beverage") {
             //     beverageCount += 1* item.quantity;
             // }
-            if (this.checkTypeOfFood(item.name) === "dessertCount") {
-                dessertCount += 1* item.quantity;
+            if (this.checkTypeOfFood(item.name) === "dessert") {
+                dessertCount += 1 * item.quantity;
             }
         });
         // 주말은 메인 메뉴를 1개당 2023할인
         if ((inputDay === 1 || inputDay === 2) && mainCount !== 0){
             // 메인 메뉴가 존재하는지 체크
             console.log("주말은 메인 메뉴 할인 mainCount", mainCount);
-            totalDiscount += 2023 * mainCount;
+            discountMoney += 2023 * mainCount;
         }
 
         if ((inputDay === 3 || (inputDay < 7 && inputDay > 2)) && dessertCount !== 0) {
             // 디저트가 존재하는지 체크
             console.log("평일은 디저트 할인 dessertCount", dessertCount);
-            totalDiscount += 2023 * dessertCount;
+            discountMoney += 2023 * dessertCount;
         }
-        console.log("totalDiscount 평일 주말 할인 체크", totalDiscount);
+        console.log("discountMoney 평일 주말 할인 체크", discountMoney);
         
-        return totalDiscount;
+        return discountMoney;
     },
 
     checkStar(inputDay) {
-        let price = 0;
+        let discountMoney = 0;
         if (inputDay % 7 === 3 || 25) {
-            totalDiscount += 1000;
-            return totalDiscount;
+            discountMoney += 1000;
+            return discountMoney;
         }
     },
-    
+
     checkTypeOfFood(inputFood){
         const foodType = this.categoryInFood(inputFood);
         return foodType;

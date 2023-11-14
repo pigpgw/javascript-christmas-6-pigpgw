@@ -32,9 +32,7 @@ class App {
   }
 
   handleEvent(){
-    const dDayDiscount = Event.dDayDiscount(this.reserveDay);
-    const aWeekDiscount = Event.aWeekDiscount(this.reserveDay,this.userOrderList);
-
+    this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay,this.userOrderList);
   }
 }
 
