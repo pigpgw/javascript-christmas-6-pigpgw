@@ -40,8 +40,7 @@ const inputValidation = {
             }
             menuList.push(menu);
         });
-        console.log("menulist", menuList);
-        return true;  // Return true to indicate success
+        return true;
     },
 };
 

@@ -25,11 +25,11 @@ const InputView = {
         while (true) {
             try {
                 const input = await Console.readLineAsync("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1)");
-                const forCheckUserMenu = input.split(',');
+                const forCheckUserMenu = input.split(',').map(item => item.trim());
                 inputValidation.checkDuplicate(input);
 
                 forCheckUserMenu.forEach(item => {
-                    item = item.split("-");
+                    item = item.split("-").map(part => part.trim());
                     const menuName = item[0];
                     const quantity = Number(item[1]);
 
@@ -37,8 +37,12 @@ const InputView = {
                     inputValidation.checkValidQuantity(quantity);
                     
                     
-                    const menuPrice = this.getPrice(menuName);
+                    const menuPrice = this.getPrice(menuName) * quantity;
                     totalPrice += menuPrice;
+
+                    console.log("menuName", menuName);
+                    console.log("quantity", quantity);
+                    console.log("menuPrice", menuPrice);
 
                     userSelectMenu.push({ name: menuName, quantity: quantity, price: menuPrice });
                 });
@@ -47,7 +51,6 @@ const InputView = {
                 Console.print(error.message);
             }
         }
-        console.log("userSelectMenu",userSelectMenu);
         return { userSelectMenu, totalPrice };
     },
 

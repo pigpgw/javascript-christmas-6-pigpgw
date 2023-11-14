@@ -12,6 +12,7 @@ class App {
     this.beforeDiscount = 0;
     this.userOrderList = [];
     this.totalDiscount = 0;
+    this.giveawayMenu = '';
   }
 
   async run() {
@@ -25,14 +26,14 @@ class App {
   async getUserInput() {
     this.reserveDay = await inputView.readDate();
     const { userSelectMenu, totalPrice } = await inputView.readMenu();
-    console.log("userOrderList", userSelectMenu);
     this.userOrderList = userSelectMenu;
     this.beforeDiscount = totalPrice;
-    console.log(this.userOrderList, this.beforeDiscount);
   }
 
   handleEvent(){
-    this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay,this.userOrderList);
+    this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList, this.beforeDiscount);
+    const giveawayMenu = Event.giveawayMenuCheck(this.beforeDiscount);
+    OutputView.printGiveAway(this.beforeDiscount,giveawayMenu);
   }
 }
 
