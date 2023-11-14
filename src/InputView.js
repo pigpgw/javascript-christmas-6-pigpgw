@@ -16,32 +16,37 @@ const InputView = {
         }
     },
 
-    async readMenu(){
+    async readMenu() {
+        const userSelectMenu = [];
+        let totalPrice = 0;
+
         while (true) {
-            const userSelectMenu = [];
-            const totalPrice = 0;
             try {
-                const input = await Console.readLineAsync("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
-                const forCheckUserMenu = input.split(',');
-                console.log("forCheckUserMenu",forCheckUserMenu);
+                const input = await Console.readLineAsync("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1)");
+                const sanitizedInput = input.replace(/,+$/, '');
+
+                const forCheckUserMenu = sanitizedInput.split(',');
+
                 forCheckUserMenu.forEach(item => {
                     item = item.split("-");
                     const menu = item[0];
-                    const quantity = item[1];
-                    console.log("메뉴",menu);
-                    inputValidation.checkExitsMenu(menu);
-                    // userSelectMenu.push(menu[0]);
-                    // totalPrice += Number(menu[1]);
-                });
+                    const quantity = Number(item[1]);
 
-                return {userSelectMenu,totalPrice}
+                    inputValidation.checkExitsMenu(menu);
+                    inputValidation.checkValidQuantity(quantity);
+
+                    userSelectMenu.push(menu);
+                    totalPrice += Number(quantity);
+                });
+                break;
             } catch (error) {
                 Console.print(error.message);
             }
         }
-    },
+        return { userSelectMenu, totalPrice };
+    }
 
-    
+
 
 }
 

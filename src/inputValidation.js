@@ -18,11 +18,21 @@ const inputValidation = {
     checkExitsMenu (menuitem) {
         for (const category in Menu){
             if (Menu[category].some(item => item.name === menuitem)){
-                return menuitem;
+                return;
             }
         }
         throw new Error(ERROR.NOT_IN_MENU);
     },
+
+    checkValidQuantity(quantity){
+        console.log("시작");
+        if (quantity >= 1) {
+            console.log("성공");
+            return;
+        }
+        console.log("오루ㅠ");
+        throw new Error(ERROR.INVALID_QUANTITIY);
+    }
 
 
 }
