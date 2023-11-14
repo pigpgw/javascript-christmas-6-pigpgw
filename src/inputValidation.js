@@ -9,7 +9,7 @@ const inputValidation = {
     },
 
     checkLength(input) {
-        if (Number(input) < 1 || Number(input) > 26) {
+        if (Number(input) < 1 || Number(input) > 31) {
             throw ERROR.OVER_RANGE_DATE;
         }
     },

@@ -4,7 +4,7 @@ import Menu from './Menu.js';
 
 
 
-const sfood = "해산물파스타";
+const inputFood = "해산물파스타";
 
 const userSelectMenu = [
     { name: '해산물파스타', quantity: 2, price: 35000 },
@@ -15,3 +15,9 @@ userSelectMenu.forEach(menu => {
     Console.print(`${menu.name} ${menu.quantity}개`);
 });
 
+for (const category in Menu) {
+    const foodInCategory = Menu[category].find(food => food.name === inputFood);
+    if (foodInCategory) {
+        console.log("category", category);
+    }
+};
