@@ -25,16 +25,25 @@ const inputValidation = {
     },
 
     checkValidQuantity(quantity){
-        console.log("시작");
         if (quantity >= 1) {
-            console.log("성공");
             return;
         }
-        console.log("오루ㅠ");
         throw new Error(ERROR.INVALID_QUANTITIY);
-    }
+    },
 
-
+    checkDuplicate(userInput){
+        const menuList = [];
+        const splitOrderList = userInput.split(',');
+        splitOrderList.forEach(item => {
+            const menu = item.split("-")[0].trim();
+            if (menuList.includes(menu)){
+                throw new Error (ERROR.IS_DUPLICATE);
+            }
+            menuList.push(menu);
+        });
+        console.log("menulist",menuList);
+        return;
+    }   
 }
 
 export default inputValidation;

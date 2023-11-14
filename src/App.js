@@ -5,15 +5,22 @@ import OutputView from './OutputView.js';
 import Menu from './Menu.js';
 class App {
 
+  constructor(){
+    this.beforeDiscount = 0;
+    this.selectMenuList;
+  }
+
   async run() {
     OutputView.printServiceStart();
-    const reserveDay =  await inputView.readDate();
+    await this.getUserInput();
+    OutputView.printMenu();
+  }
 
-    // const menuItemName = '양송이수프';
-    // const menu = Menu.appetizer.find(item => item.name === menuItemName);
-    // console.log(menu.price);
-    inputView.readMenu();
-
+  async getUserInput(){
+    const reserveDay = await inputView.readDate();
+    const { userSelectMenu, totalPrice } = await inputView.readMenu();
+    this.selectMenuList = userSelectMenu;
+    this.beforeDiscount = totalPrice;
   }
 }
 
