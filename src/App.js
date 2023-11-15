@@ -15,31 +15,31 @@ class App {
   }
 
   async run() {
-    await this.christmasEvent();
+    await this.runChristmasEventService();
   }
 
-  async christmasEvent(){
-    await this.getUserInput();
+  async runChristmasEventService(){
+    await this.getUserOrder();
     OutputView.printServiceStart();
     OutputView.printMenu(this.userOrderList);
     OutputView.printBeforeDiscount(this.beforeDiscount);
-    this.totalEventLogic();
+    this.serviceMainLogic();
   }
 
-  async getUserInput() {
+  async getUserOrder() {
     try {
       this.reserveDay = await inputView.readDate();
       const { userSelectMenu, totalPrice } = await inputView.readMenu();
       this.userOrderList = userSelectMenu;
       this.beforeDiscount = totalPrice;
     } catch (error) {
-      await this.getUserInput();
+      await this.getUserOrder();
     }
   }
 
-  totalEventLogic(){
+  serviceMainLogic(){
     this.calculateEventDiscount();
-    this.printUserPayment();
+    this.printBill();
   }
   
   calculateEventDiscount(){
@@ -49,7 +49,7 @@ class App {
     this.giveawayMenu = Event.giveawayMenuCheck(this.beforeDiscount);
   }
 
-  printUserPayment(){
+  printBill(){
     OutputView.printGiveAway(this.beforeDiscount, this.giveawayMenu);
     OutputView.printBenefit(
       Event.dDayDiscount(this.reserveDay, this.beforeDiscount),
