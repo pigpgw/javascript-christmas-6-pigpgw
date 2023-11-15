@@ -1,16 +1,13 @@
 import { Console } from '@woowacourse/mission-utils';
-import Event from './event.js';
 
 const OutputView = {
 
     printServiceStart (){
         Console.print("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
-
     },
 
     printMenu(userOrderList) {
         Console.print("<주문 메뉴>");
-        // console.log("userOrderList",userOrderList);
         userOrderList.forEach(menu => {
             Console.print(`${menu.name} ${menu.quantity}개`);
         });
@@ -36,6 +33,10 @@ const OutputView = {
     printBenefit(dDayDiscount, aWeekDiscount, checkStar,beforeDiscount){
         let totalDiscount = 0;
         Console.print("<혜택 내역>");
+        if (dDayDiscount === 0){
+            Console.print(`없음`);
+        }
+
         if (dDayDiscount !== 0){
             totalDiscount += dDayDiscount;
             Console.print(`크리스마스 디데이 할인: -${dDayDiscount.toLocaleString()}원`);
@@ -58,7 +59,12 @@ const OutputView = {
 
 
         Console.print("<총혜택 금액>");
-        Console.print(`-${totalDiscount.toLocaleString()}원`);
+        if (totalDiscount !== 0){
+            Console.print(`-${totalDiscount.toLocaleString()}원`);
+        }
+        if (totalDiscount === 0){
+            Console.print(`${totalDiscount.toLocaleString()}원`);
+        }
     },
     
     printAfterDiscount(beforeDiscount, totalBenefit){
@@ -70,7 +76,8 @@ const OutputView = {
     printBedge(bedge){
         Console.print("<12월 이벤트 배지>");
         Console.print(`${bedge}`);
-    }
+    },
+    
 }
 
 export default OutputView;

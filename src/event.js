@@ -4,83 +4,86 @@ import inputView from './InputView.js';
 import OutputView from './OutputView.js';
 import Menu from './Menu.js';
 
+
 const Event = {
 
-    totalDiscountCalculator(reserveDay, userOrderList){
+    totalDiscountCalculator(reserveDay, userOrderList,beforeDiscount){
         let totalDiscount = 0;
-        totalDiscount += this.dDayDiscount(reserveDay);
-        totalDiscount += this.aWeekDiscount(reserveDay,userOrderList);
-        totalDiscount += this.checkStar(reserveDay);
-        console.log("outputview totalDiscount",totalDiscount);
+        if (beforeDiscount >= 10000) {
+            totalDiscount += this.dDayDiscount(reserveDay);
+            totalDiscount += this.aWeekDiscount(reserveDay, userOrderList);
+            totalDiscount += this.checkStar(reserveDay);
+        }
+        // console.log("outputview totalDiscount",totalDiscount);
         return totalDiscount;
     },
 
     totalBenefitCalculator(reserveDay,userOrderList,beforeDiscount){
         let totalBenefit = 0;
-        totalBenefit +=  this.totalDiscountCalculator(reserveDay, userOrderList);
-        // 증정품도 할인 혜택에 더함
-        // console.log("증정품 가격 체크", this.giveawayMenuCheck(beforeDiscount).price);
-        totalBenefit += this.giveawayMenuCheck(beforeDiscount);
+        if (beforeDiscount >= 10000) {
+            totalBenefit += this.totalDiscountCalculator(reserveDay, userOrderList, beforeDiscount);
+            totalBenefit += this.giveawayMenuCheck(beforeDiscount);
+        }
+
         return totalBenefit;
     },
 
     // console.log("크리스마스 디데이 할인", discountMoney);
-    dDayDiscount(reserveDay){
+    dDayDiscount(reserveDay, beforeDiscount) {
         let discountMoney = 0;
-        if (reserveDay <= 25) {
-            discountMoney = 1000 + Number(reserveDay-1) * 100;
-            return discountMoney;  
+        if (reserveDay <= 25 && beforeDiscount >= 10000) {
+            discountMoney = 1000 + Number(reserveDay - 1) * 100;
+            return discountMoney;
         }
         return 0;
     },
 
     // console.log("크리스마스 평일 주말 요일별 할인 할인 체크", discountMoney);
-    aWeekDiscount(reserveDay,userOrderList){
+    aWeekDiscount(reserveDay, userOrderList, beforeDiscount){
         let discountMoney = 0;
-        const watDay = reserveDay % 7;
-        // 평일 주말 할인 
-        discountMoney += this.applyWeekDiscount(watDay,userOrderList);
+        if (beforeDiscount >= 10000){
+            const watDay = reserveDay % 7;
+            // 평일 주말 할인 
+            discountMoney += this.applyWeekDiscount(watDay, userOrderList, beforeDiscount);
+        }
         return discountMoney;
     },
 
-    applyWeekDiscount(inputDay,userOrderList){
+    applyWeekDiscount(inputDay,userOrderList, beforeDiscount){
         let discountMoney = 0;
         let dessertCount = 0;
         let mainCount = 0;
 
-        userOrderList.forEach(item => {
-            const ban = this.checkTypeOfFood(item.name);
-            // console.log("check", ban);
-            // console.log("item",item.name);
-            if (this.checkTypeOfFood(item.name) === "main"){
-                mainCount += 1* item.quantity;
+        if (beforeDiscount >= 10000){
+            userOrderList.forEach(item => {
+                const ban = this.checkTypeOfFood(item.name);
+                if (this.checkTypeOfFood(item.name) === "main") {
+                    mainCount += 1 * item.quantity;
+                }
+
+                if (this.checkTypeOfFood(item.name) === "dessert") {
+                    dessertCount += 1 * item.quantity;
+                }
+            });
+            // 주말은 메인 메뉴를 1개당 2023할인
+            if ((inputDay === 1 || inputDay === 2) && mainCount !== 0) {
+                // 메인 메뉴가 존재하는지 체크
+                discountMoney += 2023 * mainCount;
             }
 
-            if (this.checkTypeOfFood(item.name) === "dessert") {
-                dessertCount += 1 * item.quantity;
+            if ((inputDay === 3 || (inputDay < 7 && inputDay > 2)) && dessertCount !== 0) {
+                // 디저트가 존재하는지 체크
+                discountMoney += 2023 * dessertCount;
             }
-        });
-        // 주말은 메인 메뉴를 1개당 2023할인
-        if ((inputDay === 1 || inputDay === 2) && mainCount !== 0){
-            // 메인 메뉴가 존재하는지 체크
-            // console.log("주말은 메인 메뉴 할인 mainCount", mainCount);
-            discountMoney += 2023 * mainCount;
-        }
 
-        if ((inputDay === 3 || (inputDay < 7 && inputDay > 2)) && dessertCount !== 0) {
-            // 디저트가 존재하는지 체크
-            // console.log("평일은 디저트 할인 dessertCount", dessertCount);
-            discountMoney += 2023 * dessertCount;
         }
-        // console.log("discountMoney 평일 주말 메뉴 할인 체크", discountMoney);
-        
         return discountMoney;
     },
 
     // 별이 달린 날짜 할인
-    checkStar(inputDay) {
+    checkStar(inputDay, beforeDiscount) {
         let discountMoney = 0;
-        if (inputDay % 7 === 3 || inputDay === 25) {
+        if (beforeDiscount >= 10000 && (inputDay % 7 === 3 || inputDay === 25)){
             discountMoney += 1000;
         }
         return discountMoney;
@@ -101,7 +104,6 @@ const Event = {
                 return category;
             }
         }
-        return 'Unknown';
     },
 
     // 증정 이벤트
@@ -117,11 +119,11 @@ const Event = {
 
     giveBadgeCheck(totalBenefit){
         let bedge = "";
-        if (10000 >totalBenefit >= 5000){
+        if (totalBenefit >= 5000 && totalBenefit < 100000){
             return bedge += "별";
         }
 
-        if (20000 > bedge >= 10000){
+        if (totalBenefit >= 10000 && totalBenefit < 20000){
             return bedge += "트리";
         }
 

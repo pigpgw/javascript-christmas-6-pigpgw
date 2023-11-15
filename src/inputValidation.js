@@ -1,33 +1,35 @@
+// inputValidation.js
 import ERROR from './error.js';
 import Menu from './Menu.js';
 
 const inputValidation = {
     checkNumber(input) {
-        if (!Number(input)) {
-            throw ERROR.NOT_A_NUMBER;
+        const num = Number(input);
+        if (isNaN(num) || !Number.isInteger(num)) {
+            throw new Error(ERROR.INVALID_DATE.message);
         }
     },
 
     checkLength(input) {
         if (Number(input) < 1 || Number(input) > 31) {
-            throw ERROR.OVER_RANGE_DATE;
+            throw new Error(ERROR.OVER_RANGE_DATE.message);
         }
     },
 
     checkExitsMenu(menuitem) {
         for (const category in Menu) {
-            if (Menu[category].some(item => item.name === menuitem)) {
+            if (Menu[category].some(item => item.name.toLowerCase() === menuitem.toLowerCase())) {
                 return;
             }
         }
-        throw ERROR.NOT_IN_MENU;
+        throw new Error(ERROR.NOT_IN_MENU.messag);
     },
 
     checkValidQuantity(quantity) {
         if (quantity >= 1) {
             return;
         }
-        throw ERROR.INVALID_QUANTITY;
+        throw new Error(ERROR.INVALID_QUANTITY.message);
     },
 
     checkDuplicate(userInput) {
@@ -35,12 +37,11 @@ const inputValidation = {
         const splitOrderList = userInput.split(',');
         splitOrderList.forEach(item => {
             const menu = item.split("-")[0].trim();
-            if (menuList.includes(menu)) {
-                throw ERROR.IS_DUPLICATE;
+            if (menuList.includes(menu.toLowerCase())) {
+                throw new Error(ERROR.IS_DUPLICATE);
             }
-            menuList.push(menu);
+            menuList.push(menu.toLowerCase());
         });
-        return true;
     },
 };
 

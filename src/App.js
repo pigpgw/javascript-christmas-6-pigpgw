@@ -18,29 +18,36 @@ class App {
   }
 
   async run() {
-    OutputView.printServiceStart();
     await this.getUserInput();
+    OutputView.printServiceStart();
     OutputView.printMenu(this.userOrderList);
     OutputView.printBeforeDiscount(this.beforeDiscount);
     this.handleEvent();
   }
 
   async getUserInput() {
-    this.reserveDay = await inputView.readDate();
-    const { userSelectMenu, totalPrice } = await inputView.readMenu();
-    this.userOrderList = userSelectMenu;
-    this.beforeDiscount = totalPrice;
+    try {
+      this.reserveDay = await inputView.readDate();
+      const { userSelectMenu, totalPrice } = await inputView.readMenu();
+      this.userOrderList = userSelectMenu;
+      this.beforeDiscount = totalPrice;
+    } catch (error) {
+      await this.getUserInput();
+    }
   }
 
   handleEvent(){
-    this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList);
+    this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList, this.beforeDiscount);
     this.totalBenefit = Event.totalBenefitCalculator(this.reserveDay,this.userOrderList,this.beforeDiscount);
     this.bedge = Event.giveBadgeCheck(this.totalBenefit);
-    console.log("bedge",this.bedge);
     const giveawayMenu = Event.giveawayMenuCheck(this.beforeDiscount);
     OutputView.printGiveAway(this.beforeDiscount,giveawayMenu);
-    OutputView.printBenefit(Event.dDayDiscount(this.reserveDay), Event.aWeekDiscount(this.reserveDay, this.userOrderList), Event.checkStar(this.reserveDay),this.beforeDiscount);
-    // printBenefit(dDayDiscount, aWeekDiscount, checkStar, beforeDiscount){
+    OutputView.printBenefit(
+      Event.dDayDiscount(this.reserveDay, this.beforeDiscount),
+      Event.aWeekDiscount(this.reserveDay, this.userOrderList, this.beforeDiscount),
+      Event.checkStar(this.reserveDay, this.beforeDiscount),
+      this.beforeDiscount
+    );
     OutputView.printAfterDiscount(this.beforeDiscount, this.totalDiscount);
     OutputView.printBedge(this.bedge);
   }

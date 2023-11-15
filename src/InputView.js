@@ -3,20 +3,19 @@ import inputValidation from './inputValidation.js';
 import Menu from './Menu.js';
 import ERROR from './error.js';
 const InputView = {
-    
-    async readDate() {
-        while (true) {
-            try {
-                const input = await Console.readLineAsync("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-                inputValidation.checkNumber(input);
-                inputValidation.checkLength(input);
 
-                return input;
-            } catch (error) {
-                Console.print(error.message);
+        async readDate() {
+            while (true) {
+                try {
+                    const input = await Console.readLineAsync("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
+                    inputValidation.checkNumber(input);
+                    inputValidation.checkLength(input);
+                    return input;
+                } catch (error) {
+                    Console.print(error.message);
+                }
             }
-        }
-    },
+        },
 
     async readMenu() {
         const userSelectMenu = [];
@@ -36,13 +35,8 @@ const InputView = {
                     inputValidation.checkExitsMenu(menuName);
                     inputValidation.checkValidQuantity(quantity);
                     
-                    
                     const menuPrice = this.getPrice(menuName) * quantity;
                     totalPrice += menuPrice;
-
-                    console.log("menuName", menuName);
-                    console.log("quantity", quantity);
-                    console.log("menuPrice", menuPrice);
 
                     userSelectMenu.push({ name: menuName, quantity: quantity, price: menuPrice });
                 });
