@@ -34,7 +34,11 @@ class App {
     this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList, this.beforeDiscount);
     const giveawayMenu = Event.giveawayMenuCheck(this.beforeDiscount);
     OutputView.printGiveAway(this.beforeDiscount,giveawayMenu);
+    OutputView.printBenefit(Event.dDayDiscount(this.reserveDay), Event.aWeekDiscount(this.reserveDay, this.userOrderList), Event.checkStar(this.reserveDay),this.beforeDiscount);
+    // printBenefit(dDayDiscount, aWeekDiscount, checkStar, beforeDiscount){
   }
+  
+
 }
 
 export default App;

@@ -19,21 +19,22 @@ const Event = {
         return totalDiscount;
     },
 
+    // console.log("크리스마스 디데이 할인", discountMoney);
     dDayDiscount(reserveDay){
+        let discountMoney = 0;
         if (reserveDay <= 25) {
-            const discountMoney = 1000 + Number(reserveDay) * 100;
-            // console.log("크리스마스 디데이 할인", discountMoney);
+            discountMoney = 1000 + Number(reserveDay-1) * 100;
             return discountMoney;  
         }
+        return 0;
     },
 
-    // 1일 금요일
+    // console.log("크리스마스 평일 주말 요일별 할인 할인 체크", discountMoney);
     aWeekDiscount(reserveDay,userOrderList){
         let discountMoney = 0;
         const watDay = reserveDay % 7;
         // 평일 주말 할인 
         discountMoney += this.applyWeekDiscount(watDay,userOrderList);
-        // console.log("크리스마스 디데이 할인 체크", discountMoney);
         return discountMoney;
     },
 
@@ -71,6 +72,7 @@ const Event = {
         return discountMoney;
     },
 
+    // 별이 달린 날짜 할인
     checkStar(inputDay) {
         let discountMoney = 0;
         if (inputDay % 7 === 3 || inputDay === 25) {
@@ -97,7 +99,7 @@ const Event = {
         return 'Unknown';
     },
 
-
+    // 증정 이벤트
     giveawayMenuCheck(beforeDiscount) {
         if (beforeDiscount > 120000) {
             return { name: '샴페인', quantity: 1, price: 0 };

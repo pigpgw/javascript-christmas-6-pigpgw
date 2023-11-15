@@ -18,7 +18,7 @@ const OutputView = {
 
     printBeforeDiscount(totalPrice){
         Console.print("<할인 전 총주문 금액>");
-        Console.print(`${totalPrice.toLocaleString() }원`);
+        Console.print(`${totalPrice.toLocaleString()}원`);
     },
 
     printGiveAway(beforeDiscount, giveawayMenu) {
@@ -31,6 +31,33 @@ const OutputView = {
         if (beforeDiscount < 120000) {
             Console.print("없음");
         }
+    },
+
+    printBenefit(dDayDiscount, aWeekDiscount, checkStar,beforeDiscount){
+        let totalDiscount = 0;
+        Console.print("<혜택 내역>");
+        if (dDayDiscount !== 0){
+            totalDiscount += dDayDiscount;
+            Console.print(`크리스마스 디데이 할인: -${dDayDiscount.toLocaleString()}원`);
+        }
+
+        if (aWeekDiscount !== 0){
+            totalDiscount += aWeekDiscount;
+            Console.print(`퍙일 할인: -${aWeekDiscount.toLocaleString()}원`);
+        }
+
+        if (checkStar !== 0){
+            totalDiscount += checkStar;
+            Console.print(`특별 할인: -${checkStar.toLocaleString()}원`);
+        }
+
+        if (beforeDiscount >= 120000){
+            totalDiscount += Number(25000);
+            Console.print(`증정 이벤트: -25,000원`)
+        }
+
+        Console.print("<총혜택 금액>");
+        Console.print(`-${totalDiscount.toLocaleString()}원`);
     }
     
 }
