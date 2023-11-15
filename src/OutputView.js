@@ -44,7 +44,7 @@ const OutputView = {
 
         if (aWeekDiscount !== 0){
             totalDiscount += aWeekDiscount;
-            Console.print(`퍙일 할인: -${aWeekDiscount.toLocaleString()}원`);
+            Console.print(`평일 할인: -${aWeekDiscount.toLocaleString()}원`);
         }
 
         if (checkStar !== 0){

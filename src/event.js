@@ -7,6 +7,7 @@ import Menu from './Menu.js';
 
 const Event = {
 
+    // 총 할인에는 증정 메뉴 가격이 안들어감
     totalDiscountCalculator(reserveDay, userOrderList,beforeDiscount){
         let totalDiscount = 0;
         if (beforeDiscount >= 10000) {
@@ -14,10 +15,11 @@ const Event = {
             totalDiscount += this.aWeekDiscount(reserveDay, userOrderList);
             totalDiscount += this.checkStar(reserveDay);
         }
-        // console.log("outputview totalDiscount",totalDiscount);
+
         return totalDiscount;
     },
 
+    // 총 혜택 = 할인 금액의 합계 + 증정 메뉴의 가격
     totalBenefitCalculator(reserveDay,userOrderList,beforeDiscount){
         let totalBenefit = 0;
         if (beforeDiscount >= 10000) {
@@ -28,7 +30,7 @@ const Event = {
         return totalBenefit;
     },
 
-    // console.log("크리스마스 디데이 할인", discountMoney);
+    // 크리스마스 디데이 할인
     dDayDiscount(reserveDay, beforeDiscount) {
         let discountMoney = 0;
         if (reserveDay <= 25 && beforeDiscount >= 10000) {
@@ -38,17 +40,17 @@ const Event = {
         return 0;
     },
 
-    // console.log("크리스마스 평일 주말 요일별 할인 할인 체크", discountMoney);
+    // 크리스마스 평일 주말 요일별 할인 할인 체크
     aWeekDiscount(reserveDay, userOrderList, beforeDiscount){
         let discountMoney = 0;
         if (beforeDiscount >= 10000){
             const watDay = reserveDay % 7;
-            // 평일 주말 할인 
             discountMoney += this.applyWeekDiscount(watDay, userOrderList, beforeDiscount);
         }
         return discountMoney;
     },
 
+    // 
     applyWeekDiscount(inputDay,userOrderList, beforeDiscount){
         let discountMoney = 0;
         let dessertCount = 0;
