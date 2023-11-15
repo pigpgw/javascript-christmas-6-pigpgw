@@ -1,8 +1,5 @@
-import { Random, Console } from '@woowacourse/mission-utils';
-import inputValidation from './inputValidation.js';
 import inputView from './InputView.js';
 import OutputView from './OutputView.js';
-import Menu from './Menu.js';
 import Event from './event.js';
 
 class App {
@@ -41,11 +38,19 @@ class App {
   }
 
   totalEventLogic(){
+    this.calculateEventDiscount();
+    this.printUserPayment();
+  }
+  
+  calculateEventDiscount(){
     this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList, this.beforeDiscount);
-    this.totalBenefit = Event.totalBenefitCalculator(this.reserveDay,this.userOrderList,this.beforeDiscount);
+    this.totalBenefit = Event.totalBenefitCalculator(this.reserveDay, this.userOrderList, this.beforeDiscount);
     this.bedge = Event.giveBadgeCheck(this.totalBenefit);
-    const giveawayMenu = Event.giveawayMenuCheck(this.beforeDiscount);
-    OutputView.printGiveAway(this.beforeDiscount,giveawayMenu);
+    this.giveawayMenu = Event.giveawayMenuCheck(this.beforeDiscount);
+  }
+
+  printUserPayment(){
+    OutputView.printGiveAway(this.beforeDiscount, this.giveawayMenu);
     OutputView.printBenefit(
       Event.dDayDiscount(this.reserveDay, this.beforeDiscount),
       Event.aWeekDiscount(this.reserveDay, this.userOrderList, this.beforeDiscount),
@@ -55,7 +60,6 @@ class App {
     OutputView.printAfterDiscount(this.beforeDiscount, this.totalDiscount);
     OutputView.printBedge(this.bedge);
   }
-  
 
 }
 
