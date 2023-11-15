@@ -18,11 +18,15 @@ class App {
   }
 
   async run() {
+    await this.christmasEvent();
+  }
+
+  async christmasEvent(){
     await this.getUserInput();
     OutputView.printServiceStart();
     OutputView.printMenu(this.userOrderList);
     OutputView.printBeforeDiscount(this.beforeDiscount);
-    this.handleEvent();
+    this.totalEventLogic();
   }
 
   async getUserInput() {
@@ -36,7 +40,7 @@ class App {
     }
   }
 
-  handleEvent(){
+  totalEventLogic(){
     this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList, this.beforeDiscount);
     this.totalBenefit = Event.totalBenefitCalculator(this.reserveDay,this.userOrderList,this.beforeDiscount);
     this.bedge = Event.giveBadgeCheck(this.totalBenefit);

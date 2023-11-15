@@ -1,9 +1,7 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 import inputValidation from './inputValidation.js';
 import Menu from './Menu.js';
-import ERROR from './error.js';
 const InputView = {
-
         async readDate() {
             while (true) {
                 try {
@@ -23,14 +21,10 @@ const InputView = {
 
         while (true) {
             try {
-                // 입력값 받기
                 const input = await Console.readLineAsync("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1)");
-                // 주문 메뉴별 분류
-                const forCheckUserMenu = input.split(',').map(item => item.trim());
-                // 중복 체크
+                const forCheckUserMenu = this.splitUserMenu(input);
                 inputValidation.checkDuplicate(input);
 
-                // 음식별 이름과 수량 체크
                 this.processUserMenu(forCheckUserMenu, userSelectMenu, totalPrice);
                 
                 break;
@@ -39,6 +33,10 @@ const InputView = {
             }
         }
         return { userSelectMenu, totalPrice };
+    },
+
+    splitUserMenu(input) {
+        return input.split(',').map(item => item.trim());
     },
 
     processUserMenu(forCheckUserMenu, userSelectMenu, totalPrice) {
@@ -56,7 +54,6 @@ const InputView = {
             userSelectMenu.push({ name: menuName, quantity, price: menuPrice });
         });
     },
-
     
     getPrice (itemName) {
         for (const category in Menu){
@@ -66,9 +63,6 @@ const InputView = {
             }
         }
     },
-
-
-
 }
 
 export default InputView;

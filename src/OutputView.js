@@ -33,39 +33,58 @@ const OutputView = {
     printBenefit(dDayDiscount, aWeekDiscount, checkStar,beforeDiscount){
         let totalDiscount = 0;
         Console.print("<혜택 내역>");
-        if (dDayDiscount === 0){
+        this.printCheckDiscount(dDayDiscount);
+        this.printDdayDiscount(totalDiscount,dDayDiscount);
+        this.printWeekDiscount(totalDiscount,aWeekDiscount);
+        this.printCheckStar(checkStar,totalDiscount);
+        this.printCheckGiveAway(beforeDiscount,totalDiscount);
+        this.printTotalBenefitPrice(totalDiscount);
+    },
+
+    printCheckDiscount(dDayDiscount){
+        if (dDayDiscount === 0) {
             Console.print(`없음`);
         }
+    },
 
-        if (dDayDiscount !== 0){
+    printDdayDiscount(totalDiscount,dDayDiscount){
+        if (dDayDiscount !== 0) {
             totalDiscount += dDayDiscount;
             Console.print(`크리스마스 디데이 할인: -${dDayDiscount.toLocaleString()}원`);
         }
+    },
 
-        if (aWeekDiscount !== 0){
+    printWeekDiscount(totalDiscount,aWeekDiscount){
+        if (aWeekDiscount !== 0) {
             totalDiscount += aWeekDiscount;
             Console.print(`평일 할인: -${aWeekDiscount.toLocaleString()}원`);
         }
+    },
 
-        if (checkStar !== 0){
+    printCheckStar(checkStar,totalDiscount){
+        if (checkStar !== 0) {
             totalDiscount += checkStar;
             Console.print(`특별 할인: -${checkStar.toLocaleString()}원`);
         }
+    },
 
-        if (beforeDiscount >= 120000){
+    printCheckGiveAway(beforeDiscount,totalDiscount){
+        if (beforeDiscount >= 120000) {
             totalDiscount += Number(25000);
             Console.print(`증정 이벤트: -25,000원`)
         }
+    },
 
-
+    printTotalBenefitPrice(totalDiscount){
         Console.print("<총혜택 금액>");
-        if (totalDiscount !== 0){
+        if (totalDiscount !== 0) {
             Console.print(`-${totalDiscount.toLocaleString()}원`);
         }
-        if (totalDiscount === 0){
+        if (totalDiscount === 0) {
             Console.print(`${totalDiscount.toLocaleString()}원`);
         }
     },
+    
     
     printAfterDiscount(beforeDiscount, totalBenefit){
         let afterDiscount = beforeDiscount - totalBenefit;
