@@ -1,4 +1,4 @@
-import { Random, Console } from '@woowacourse/mission-utils';
+import { Console } from '@woowacourse/mission-utils';
 import inputValidation from './inputValidation.js';
 import Menu from './Menu.js';
 const InputView = {

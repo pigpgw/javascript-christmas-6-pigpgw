@@ -1,4 +1,3 @@
-// inputValidation.js
 import ERROR from './error.js';
 import Menu from './Menu.js';
 
