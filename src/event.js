@@ -6,17 +6,22 @@ import Menu from './Menu.js';
 
 const Event = {
 
-    totalDiscountCalculator(reserveDay, userOrderList,beforeDiscount){
+    totalDiscountCalculator(reserveDay, userOrderList){
         let totalDiscount = 0;
         totalDiscount += this.dDayDiscount(reserveDay);
         totalDiscount += this.aWeekDiscount(reserveDay,userOrderList);
         totalDiscount += this.checkStar(reserveDay);
-
-        // 증정품도 할인 혜택에 더함
-        totalDiscount += this.giveawayMenuCheck(beforeDiscount).price;
-        // console.log("증정품 가격 체크", this.giveawayMenuCheck(beforeDiscount).price);
-        // console.log("totalDiscount",totalDiscount);
+        console.log("outputview totalDiscount",totalDiscount);
         return totalDiscount;
+    },
+
+    totalBenefitCalculator(reserveDay,userOrderList,beforeDiscount){
+        let totalBenefit = 0;
+        totalBenefit +=  this.totalDiscountCalculator(reserveDay, userOrderList);
+        // 증정품도 할인 혜택에 더함
+        // console.log("증정품 가격 체크", this.giveawayMenuCheck(beforeDiscount).price);
+        totalBenefit += this.giveawayMenuCheck(beforeDiscount);
+        return totalBenefit;
     },
 
     // console.log("크리스마스 디데이 할인", discountMoney);
@@ -101,10 +106,12 @@ const Event = {
 
     // 증정 이벤트
     giveawayMenuCheck(beforeDiscount) {
-        if (beforeDiscount > 120000) {
-            return { name: '샴페인', quantity: 1, price: 0 };
+        let discountMoney = 0;
+        if (beforeDiscount >= 120000) {
+            discountMoney += 25000;
+            return discountMoney;
         }
-        return { name: '없음', quantity: 0, price: 0 };
+        return discountMoney;
     },
 
 

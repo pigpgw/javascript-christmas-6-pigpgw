@@ -21,11 +21,11 @@ const OutputView = {
         Console.print(`${totalPrice.toLocaleString()}원`);
     },
 
-    printGiveAway(beforeDiscount, giveawayMenu) {
+    printGiveAway(beforeDiscount) {
         Console.print("<증정 메뉴>");
 
         if (beforeDiscount >= 120000) {
-            Console.print(`${giveawayMenu.name} ${giveawayMenu.quantity}개`);
+            Console.print(`샴페인 1개`);
         } 
 
         if (beforeDiscount < 120000) {
@@ -56,10 +56,16 @@ const OutputView = {
             Console.print(`증정 이벤트: -25,000원`)
         }
 
+
         Console.print("<총혜택 금액>");
         Console.print(`-${totalDiscount.toLocaleString()}원`);
-    }
+    },
     
+    printAfterDiscount(beforeDiscount,discountMoney){
+        let afterDiscount = beforeDiscount - discountMoney;
+        Console.print("<할인 후 예상 결제 금액>");
+        Console.print(`${afterDiscount.toLocaleString()}원`);
+    }
 }
 
 export default OutputView;

@@ -13,6 +13,7 @@ class App {
     this.userOrderList = [];
     this.totalDiscount = 0;
     this.giveawayMenu = '';
+    this.totalBenefit = 0;
   }
 
   async run() {
@@ -31,11 +32,13 @@ class App {
   }
 
   handleEvent(){
-    this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList, this.beforeDiscount);
+    this.totalDiscount = Event.totalDiscountCalculator(this.reserveDay, this.userOrderList);
+    this.totalBenefit = Event.totalBenefitCalculator(this.reserveDay,this.userOrderList,this.beforeDiscount);
     const giveawayMenu = Event.giveawayMenuCheck(this.beforeDiscount);
     OutputView.printGiveAway(this.beforeDiscount,giveawayMenu);
     OutputView.printBenefit(Event.dDayDiscount(this.reserveDay), Event.aWeekDiscount(this.reserveDay, this.userOrderList), Event.checkStar(this.reserveDay),this.beforeDiscount);
     // printBenefit(dDayDiscount, aWeekDiscount, checkStar, beforeDiscount){
+    OutputView.printAfterDiscount(this.beforeDiscount, this.totalDiscount);
   }
   
 
