@@ -115,10 +115,23 @@ const Event = {
     },
 
 
-    // giveBadgeCheck(beforeDiscount, ){
-    //     const 총 해택 = 할인 금액 합계 + 증정 메뉴;
-    //     총 혜택
-    // }
+    giveBadgeCheck(totalBenefit){
+        let bedge = "";
+        if (10000 >totalBenefit >= 5000){
+            return bedge += "별";
+        }
+
+        if (20000 > bedge >= 10000){
+            return bedge += "트리";
+        }
+
+        if (totalBenefit >= 20000){
+            return bedge += "산타";
+        }
+
+        bedge += "없음";
+        return  bedge;
+    }
 
 
 }
