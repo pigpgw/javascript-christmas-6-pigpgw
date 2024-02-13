@@ -1,19 +1,15 @@
 class Validator {
-    // input은 원래는 string으로 들어옴
-    isValidVisitDay(input){
-        if (!this.isNumber(input)) throw Error('[ERROR]')
-        if (!this.isValidDay(input)) throw Error('[ERROR]')
-        return true
+    // Input originally came in as a string.
+    static isValidVisitDay(input){
+        if (!Validator.isNumber(input)) throw Error('[ERROR]');
+        if (!Validator.isValidDay(input)) throw Error('[ERROR]');
+        return true;
     }
-    // 숫자인지
-    isNumber(input){
-        if (isNaN(input)) return true;
-        return false
+    static isNumber(input){
+        return !isNaN(input);
     }
-    // 1 ~ 31 사이인지
-    isValidDay(input){
-        if(input > 0 && input < 32) return true;
-        return false
+    static isValidDay(input){
+        return input > 0 && input < 32;
     }
 }
 
