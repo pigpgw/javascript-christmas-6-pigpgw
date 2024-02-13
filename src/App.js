@@ -1,4 +1,4 @@
-import restaurantController from './restaurant/restaurantController';
+import restaurantController from './restaurant/restaurantController.js';
 class App {
   async run() {
     new restaurantController().run();
