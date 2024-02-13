@@ -2,4 +2,4 @@ class ChristmasEventManager {
     constructor() {
 
     }
-}d
+}
