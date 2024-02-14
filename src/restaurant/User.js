@@ -1,6 +1,6 @@
 class User {
   #reservationDate;
-  #orderMenuList;
+  #orderMenuList = {};
 
   setReservationDate(reservationDate) {
     this.#reservationDate = reservationDate;
@@ -11,7 +11,10 @@ class User {
   }
 
   setOrderMenuList(orderList) {
-    this.#orderMenuList = orderList;
+    orderList.split(",").forEach(item => {
+        const [menu , count] = item.split("-")
+        this.#orderMenuList[menu] = Number(count);
+    });
   }
 
   getOrderMenuList() {
