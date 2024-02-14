@@ -10,6 +10,9 @@ class restaurant {
   }
 
   async run() {
+    // 인사말
+    OutputView.printGreeting();
+    // 예약 날짜를 입력받기
     while (true) {
       try {
         const visitDay = await InputView.readDate();
@@ -20,7 +23,7 @@ class restaurant {
         OutputView.printErrorMessage(error);
       }
     }
-
+    // 주문 메뉴를 입력 받기
     while (true) {
       try {
         const orderMenu = await InputView.readOrderMenu();
