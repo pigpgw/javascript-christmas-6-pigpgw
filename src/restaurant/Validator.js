@@ -11,6 +11,8 @@ class Validator {
   static isValidDay(input) {
     return input > 0 && input < 32;
   }
+
+  
 }
 
 export default Validator;
