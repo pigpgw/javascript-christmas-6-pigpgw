@@ -33,6 +33,7 @@ class OutputView {
     dDayEventPrice,
     weekDayPrice,
     weekendDayEventPrice,
+    specialDicountEvent,
     presentEventPrice,
   ) {
     Console.print('<혜택 내역>');
@@ -40,6 +41,11 @@ class OutputView {
     if (weekDayPrice !== 0) Console.print(`평일 할인: -${weekDayPrice}원`);
     if (weekendDayEventPrice !== 0)
       Console.print(`주말 할인: -${weekendDayEventPrice}원`);
+    if (specialDicountEvent !== 0)
+      Console.print(`특별 할인: -${specialDicountEvent}원`);
+    if (specialDicountEvent === 0)
+      Console.print(`특별 할인: ${specialDicountEvent}원`);
+
     if (presentEventPrice !== 0)
       Console.print(`증정 이벤트: -${presentEventPrice}원`);
     if (presentEventPrice === 0)
@@ -50,6 +56,11 @@ class OutputView {
     Console.print('<총혜택 금액>');
     if (benefitPrice !== 0) Console.print(`-${benefitPrice}원`);
     if (benefitPrice === 0) Console.print(`${benefitPrice}원`);
+  }
+
+  static printAfterDiscount(beforeDisountPrice,discountPrice){
+    Console.print('<할인 후 예상 결제 금액>');
+    Console.print(`${beforeDisountPrice - discountPrice + 25000}원`)
   }
 }
 

@@ -80,12 +80,15 @@ class restaurant {
       this.RestaurantController.christmasDayEvent(),
       this.RestaurantController.weekdayEvent(),
       this.RestaurantController.weekendEvent(),
+      this.RestaurantController.specialDicountEvent(),
       this.RestaurantController.presentEvent(),
     );
 
     OutputView.printTotalBenefitPrice(
-      this.RestaurantController.getTotalBenefit(),
+      this.RestaurantController.calculateTotalBenefit(),
     );
+
+    OutputView.printAfterDiscount(this.RestaurantController.getTotalPrice(),this.RestaurantController.calculateTotalBenefit())
   }
 }
 

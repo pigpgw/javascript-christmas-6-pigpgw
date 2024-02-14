@@ -106,6 +106,8 @@ class RestaurantController {
     // Weekend 이벤트 혜택 계산
     totalBenefit += this.weekendEvent();
 
+    totalBenefit += this.specialDicountEvent();
+
     // 추가 혜택(예: 샴페인 이벤트) 계산
     totalBenefit += this.presentEvent();
 
