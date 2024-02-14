@@ -1,18 +1,22 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MESSAGE } from './Constant.js'
+import { MESSAGE } from './Constant.js';
 
-class OutputView  {
-  static printGreeting(){
-    Console.print(MESSAGE.GREETING)
+class OutputView {
+  static printGreeting() {
+    Console.print(MESSAGE.GREETING);
   }
-  
+
   static printMenu(clientOrderList) {
     Console.print('<주문 메뉴>');
+    const menuKeys = Object.keys(clientOrderList);
+    for (const menu of menuKeys) {
+      Console.print(menu, clientOrderList[menu]);
+    }
   }
 
   static printErrorMessage(error) {
     Console.print(error);
   }
-};
+}
 
 export default OutputView;

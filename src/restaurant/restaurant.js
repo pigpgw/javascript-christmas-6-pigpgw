@@ -39,12 +39,21 @@ class restaurant {
     }
 
     //예약 날짜와 주문 메뉴를 레스토랑 시스템에 전달하기
-    this.RestaurantController.setCustomeReservationDate(this.User.getReservationDate());
-    this.RestaurantController.setCustomerReservationMenuList(this.User.getOrderMenuList())
-    
+    this.RestaurantController.setCustomeReservationDate(
+      this.User.getReservationDate(),
+    );
+    this.RestaurantController.setCustomerReservationMenuList(
+      this.User.getOrderMenuList(),
+    );
+
+    // 고객에게 주문한 메뉴 재 확인겸 출력
+    OutputView.printMenu(
+      this.RestaurantController.getCustomerReservationMenuList(),
+    );
+
     // 총 유저의 총 주문 확인 및 총 구매 금액 계산
     this.RestaurantController.calculateTotalPrice();
-    console.log("user order TotalPrice",this.RestaurantController.getTotalPrice())
+    // console.log("user order TotalPrice",this.RestaurantController.getTotalPrice())
   }
 }
 
