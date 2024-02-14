@@ -10,6 +10,8 @@ class RestaurantController {
       try {
         const visitDay = await InputView.readDate();
         Validator.isValidVisitDay(Number(visitDay));
+        const orderMenu = await InputView.readOrderMenu();
+        Validator.isValidateOrder(orderMenu);
         break
       } catch (error) {
         OutputView.printErrorMessage(error);

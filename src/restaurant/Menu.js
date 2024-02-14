@@ -10,7 +10,7 @@ function deepFreeze(obg) {
   Object.freeze(obg);
 }
 
-const menu = {
+const Menu = {
   애피타이저: {
     양송이수프: 6000,
     타파스: 5500,
@@ -32,5 +32,5 @@ const menu = {
     샴페인: 25000,
   },
 };
-deepFreeze(menu);
-export default menu;
+deepFreeze(Menu);
+export default Menu;
