@@ -113,6 +113,14 @@ class RestaurantController {
 
     return totalBenefit;
   }
+
+  bedgeEvent() {
+    const benefit = this.calculateTotalBenefit();
+    if (benefit > 20000) return '산타';
+    if (benefit > 10000) return '트리';
+    if (benefit > 5000) return '별';
+    return "없음"
+  }
 }
 
 export default RestaurantController;

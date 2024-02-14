@@ -88,7 +88,12 @@ class restaurant {
       this.RestaurantController.calculateTotalBenefit(),
     );
 
-    OutputView.printAfterDiscount(this.RestaurantController.getTotalPrice(),this.RestaurantController.calculateTotalBenefit())
+    OutputView.printAfterDiscount(
+      this.RestaurantController.getTotalPrice(),
+      this.RestaurantController.calculateTotalBenefit(),
+    );
+
+    OutputView.printBedge(this.RestaurantController.bedgeEvent());
   }
 }
 

@@ -26,7 +26,7 @@ class Validator {
     let exist = 0;
     for (let i = 0; menuCategoryKeys.length > i; i += 1) {
       const foodList = Menu[menuCategoryKeys[i]];
-      if (Object.keys(foodList).includes(item))  exist += 1;
+      if (Object.keys(foodList).includes(item)) exist += 1;
     }
     return exist === 0 ? false : true;
   }
