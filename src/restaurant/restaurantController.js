@@ -2,7 +2,6 @@ import Menu from './Menu.js';
 import OutputView from './OutputView.js';
 class RestaurantController {
   #totalPrice = 0;
-  #totalBenefit = 0;
   #customerReservationDate = 0;
   #customerReservationMenuList;
 
@@ -46,7 +45,6 @@ class RestaurantController {
 
   christmasDayEvent() {
     const discountPrice = 1000 + (this.#customerReservationDate - 1) * 100;
-    this.#totalBenefit += discountPrice;
     return discountPrice;
   }
 
@@ -59,7 +57,6 @@ class RestaurantController {
       const saleCategory = Menu['메인'];
       discountPrice += this.calculateDayEventDiscountMoney(saleCategory);
     }
-    this.#totalBenefit += discountPrice;
     return discountPrice;
   }
 
@@ -72,7 +69,6 @@ class RestaurantController {
       const saleCategory = Menu['디저트'];
       discountPrice += this.calculateDayEventDiscountMoney(saleCategory);
     }
-    this.#totalBenefit += discountPrice;
     return discountPrice;
   }
 
@@ -88,7 +84,6 @@ class RestaurantController {
   specialDicountEvent() {
     let discountPrice = 0;
     if (this.#customerReservationDate % 7 === 3) discountPrice += 1000;
-    this.#totalBenefit += discountPrice;
     return discountPrice;
   }
 
@@ -96,8 +91,25 @@ class RestaurantController {
   presentEvent() {
     let discountPrice = 0;
     if (this.#totalPrice > 120000) discountPrice += 25000;
-    this.#totalBenefit += discountPrice;
     return discountPrice;
+  }
+
+  calculateTotalBenefit() {
+    let totalBenefit = 0;
+
+    // Christmas Day 이벤트 혜택 계산
+    totalBenefit += this.christmasDayEvent();
+
+    // Weekday 이벤트 혜택 계산
+    totalBenefit += this.weekdayEvent();
+
+    // Weekend 이벤트 혜택 계산
+    totalBenefit += this.weekendEvent();
+
+    // 추가 혜택(예: 샴페인 이벤트) 계산
+    totalBenefit += this.presentEvent();
+
+    return totalBenefit;
   }
 }
 

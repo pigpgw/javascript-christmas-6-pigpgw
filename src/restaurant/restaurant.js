@@ -74,6 +74,18 @@ class restaurant {
       'this.RestaurantController.weekendEvent()',
       this.RestaurantController.weekendEvent(),
     );
+
+    OutputView.printPresentEvent(this.RestaurantController.presentEvent());
+    OutputView.printTotalEventResult(
+      this.RestaurantController.christmasDayEvent(),
+      this.RestaurantController.weekdayEvent(),
+      this.RestaurantController.weekendEvent(),
+      this.RestaurantController.presentEvent(),
+    );
+
+    OutputView.printTotalBenefitPrice(
+      this.RestaurantController.getTotalBenefit(),
+    );
   }
 }
 
