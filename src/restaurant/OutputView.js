@@ -17,6 +17,11 @@ class OutputView {
   static printErrorMessage(error) {
     Console.print(error);
   }
+
+  static printBeforeDiscountPrice(price) {
+    Console.print('<할인 전 총주문 금액>');
+    Console.print(`${price}원`);
+  }
 }
 
 export default OutputView;

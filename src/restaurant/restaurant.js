@@ -54,6 +54,26 @@ class restaurant {
     // 총 유저의 총 주문 확인 및 총 구매 금액 계산
     this.RestaurantController.calculateTotalPrice();
     // console.log("user order TotalPrice",this.RestaurantController.getTotalPrice())
+
+    //할인전 총 주문금액 출력
+    OutputView.printBeforeDiscountPrice(
+      this.RestaurantController.getTotalPrice(),
+    );
+
+    // 이벤트 발생 체크
+    console.log(
+      'this.RestaurantController.christmasDayEvent();',
+      this.RestaurantController.christmasDayEvent(),
+    );
+    console.log(
+      'this.RestaurantController.weekdayEvent()',
+      typeof this.RestaurantController.weekdayEvent(),
+      this.RestaurantController.weekdayEvent(),
+    );
+    console.log(
+      'this.RestaurantController.weekendEvent()',
+      this.RestaurantController.weekendEvent(),
+    );
   }
 }
 
