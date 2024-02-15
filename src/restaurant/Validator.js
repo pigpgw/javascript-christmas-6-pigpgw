@@ -40,7 +40,7 @@ class Validator {
   static onlyDrink(item) {
     for (const category in Menu) {
       if (Object.keys(Menu[category]).includes(item)) {
-        return category === '음료';
+        // return category === '음료';
       }
     }
     return false;

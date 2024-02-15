@@ -58,9 +58,10 @@ class OutputView {
     if (benefitPrice === 0) Console.print(`${benefitPrice}원`);
   }
 
-  static printAfterDiscount(beforeDisountPrice,discountPrice){
+  static printAfterDiscount(beforeDisountPrice,discountPrice,presentEvent){
     Console.print('<할인 후 예상 결제 금액>');
-    Console.print(`${beforeDisountPrice - discountPrice + 25000}원`)
+    if(presentEvent !== 0)Console.print(`${beforeDisountPrice - discountPrice + 25000}원`)
+    if(presentEvent === 0)Console.print(`${beforeDisountPrice - discountPrice}원`)
   }
 
   static printBedge(bedge){

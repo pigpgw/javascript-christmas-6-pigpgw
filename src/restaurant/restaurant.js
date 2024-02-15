@@ -91,7 +91,9 @@ class restaurant {
     OutputView.printAfterDiscount(
       this.RestaurantController.getTotalPrice(),
       this.RestaurantController.calculateTotalBenefit(),
+      this.RestaurantController.presentEvent()
     );
+    // console.log("printAfterDiscount",this.RestaurantController.getTotalPrice(),this.RestaurantController.calculateTotalBenefit())
 
     OutputView.printBedge(this.RestaurantController.bedgeEvent());
   }

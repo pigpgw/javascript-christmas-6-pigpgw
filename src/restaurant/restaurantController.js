@@ -111,6 +111,7 @@ class RestaurantController {
     // 추가 혜택(예: 샴페인 이벤트) 계산
     totalBenefit += this.presentEvent();
 
+    console.log("calculateTotalBenefit",totalBenefit)
     return totalBenefit;
   }
 
