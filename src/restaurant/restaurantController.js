@@ -37,7 +37,7 @@ class RestaurantController {
       const categoryMenuList = Menu[category];
       if (categoryMenuList.hasOwnProperty(item)) {
         // 메뉴 가격 * 메뉴 개수
-        // console.log("categoryMenuList[item] this.#customerReservationMenuList[item]" ,categoryMenuList[item],this.#customerReservationMenuList[item])
+        console.log("categoryMenuList[item] this.#customerReservationMenuList[item]" ,categoryMenuList[item],this.#customerReservationMenuList[item])
         return categoryMenuList[item] * this.#customerReservationMenuList[item];
       }
     }
