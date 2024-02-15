@@ -1,6 +1,5 @@
 import InputView from './InputView.js';
 import Validator from './Validator.js';
-import { Console } from '@woowacourse/mission-utils';
 import OutputView from './OutputView.js';
 import User from './User.js';
 import RestaurantController from './restaurantController.js';
@@ -25,13 +24,13 @@ class restaurant {
         OutputView.printErrorMessage(error);
       }
     }
+
     // 주문 메뉴를 입력 받기
     while (true) {
       try {
         const orderMenu = await InputView.readOrderMenu();
         Validator.isValidateOrder(orderMenu);
         this.User.setOrderMenuList(orderMenu);
-        console.log(this.User.getOrderMenuList());
         break;
       } catch (error) {
         OutputView.printErrorMessage(error);
@@ -46,6 +45,9 @@ class restaurant {
       this.User.getOrderMenuList(),
     );
 
+    OutputView.printPreviewMessage(
+      this.RestaurantController.getCustomerReservationDate(),
+    );
     // 고객에게 주문한 메뉴 재 확인겸 출력
     OutputView.printMenu(
       this.RestaurantController.getCustomerReservationMenuList(),
@@ -53,26 +55,10 @@ class restaurant {
 
     // 총 유저의 총 주문 확인 및 총 구매 금액 계산
     this.RestaurantController.calculateTotalPrice();
-    // console.log("user order TotalPrice",this.RestaurantController.getTotalPrice())
 
     //할인전 총 주문금액 출력
     OutputView.printBeforeDiscountPrice(
       this.RestaurantController.getTotalPrice(),
-    );
-
-    // 이벤트 발생 체크
-    console.log(
-      'this.RestaurantController.christmasDayEvent();',
-      this.RestaurantController.christmasDayEvent(),
-    );
-    console.log(
-      'this.RestaurantController.weekdayEvent()',
-      typeof this.RestaurantController.weekdayEvent(),
-      this.RestaurantController.weekdayEvent(),
-    );
-    console.log(
-      'this.RestaurantController.weekendEvent()',
-      this.RestaurantController.weekendEvent(),
     );
 
     OutputView.printPresentEvent(this.RestaurantController.presentEvent());
@@ -85,15 +71,14 @@ class restaurant {
     );
 
     OutputView.printTotalBenefitPrice(
-      this.RestaurantController.calculateTotalBenefit(),
+      this.RestaurantController.getTotalbenefit(),
     );
 
     OutputView.printAfterDiscount(
       this.RestaurantController.getTotalPrice(),
-      this.RestaurantController.calculateTotalBenefit(),
-      this.RestaurantController.presentEvent()
+      this.RestaurantController.getTotalbenefit(),
+      this.RestaurantController.presentEvent(),
     );
-    // console.log("printAfterDiscount",this.RestaurantController.getTotalPrice(),this.RestaurantController.calculateTotalBenefit())
 
     OutputView.printBedge(this.RestaurantController.bedgeEvent());
   }

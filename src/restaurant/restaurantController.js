@@ -2,11 +2,16 @@ import Menu from './Menu.js';
 import OutputView from './OutputView.js';
 class RestaurantController {
   #totalPrice = 0;
+  #totalBenefit = 0;
   #customerReservationDate = 0;
   #customerReservationMenuList;
 
   constructor() {
     this.main = Menu.메인;
+  }
+
+  getCustomerReservationDate(){
+    return this.#customerReservationDate
   }
 
   getCustomerReservationMenuList() {
@@ -26,6 +31,9 @@ class RestaurantController {
     for (const menu of orderdKeys) {
       this.#totalPrice += this.calculateIndividualMenuPrice(menu);
     }
+    if (this.#totalPrice > 10000) {
+      this.calculateTotalBenefit();
+    }
   }
 
   getTotalPrice() {
@@ -37,14 +45,15 @@ class RestaurantController {
       const categoryMenuList = Menu[category];
       if (categoryMenuList.hasOwnProperty(item)) {
         // 메뉴 가격 * 메뉴 개수
-        console.log("categoryMenuList[item] this.#customerReservationMenuList[item]" ,categoryMenuList[item],this.#customerReservationMenuList[item])
+        // console.log("categoryMenuList[item] this.#customerReservationMenuList[item]" ,categoryMenuList[item],this.#customerReservationMenuList[item])
         return categoryMenuList[item] * this.#customerReservationMenuList[item];
       }
     }
   }
 
   christmasDayEvent() {
-    const discountPrice = 1000 + (this.#customerReservationDate - 1) * 100;
+    let discountPrice = 0;
+    if (this.#customerReservationDate > 1 && this.#customerReservationDate < 26) discountPrice += 1000 + (this.#customerReservationDate - 1) * 100;
     return discountPrice;
   }
 
@@ -95,32 +104,33 @@ class RestaurantController {
   }
 
   calculateTotalBenefit() {
-    let totalBenefit = 0;
-
     // Christmas Day 이벤트 혜택 계산
-    totalBenefit += this.christmasDayEvent();
+    this.#totalBenefit += this.christmasDayEvent();
 
     // Weekday 이벤트 혜택 계산
-    totalBenefit += this.weekdayEvent();
+    this.#totalBenefit += this.weekdayEvent();
 
     // Weekend 이벤트 혜택 계산
-    totalBenefit += this.weekendEvent();
+    this.#totalBenefit += this.weekendEvent();
 
-    totalBenefit += this.specialDicountEvent();
+    this.#totalBenefit += this.specialDicountEvent();
 
     // 추가 혜택(예: 샴페인 이벤트) 계산
-    totalBenefit += this.presentEvent();
+    this.#totalBenefit += this.presentEvent();
 
-    console.log("calculateTotalBenefit",totalBenefit)
-    return totalBenefit;
+    // console.log("calculateTotalBenefit",totalBenefit)
+    return this.#totalBenefit;
+  }
+
+  getTotalbenefit() {
+    return this.#totalBenefit;
   }
 
   bedgeEvent() {
-    const benefit = this.calculateTotalBenefit();
-    if (benefit > 20000) return '산타';
-    if (benefit > 10000) return '트리';
-    if (benefit > 5000) return '별';
-    return "없음"
+    if (this.#totalBenefit > 20000) return '산타';
+    if (this.#totalBenefit > 10000) return '트리';
+    if (this.#totalBenefit > 5000) return '별';
+    return '없음';
   }
 }
 
