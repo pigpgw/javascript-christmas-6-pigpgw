@@ -1,11 +1,9 @@
 import Menu from './Menu.js';
-import {ERROR_MESSAGE} from './Constant.js'
+import { ERROR_MESSAGE } from './Constant.js';
 class Validator {
   static isValidVisitDay(input) {
-    if (!this.isNumber(input))
-      throw Error(ERROR_MESSAGE.INVALID_DATE_INPUT);
-    if (!this.isValidDay(input))
-      throw Error(ERROR_MESSAGE.INVALID_DATE_INPUT);
+    if (!this.isNumber(input)) throw Error(ERROR_MESSAGE.INVALID_DATE_INPUT);
+    if (!this.isValidDay(input)) throw Error(ERROR_MESSAGE.INVALID_DATE_INPUT);
     return true;
   }
 
@@ -19,21 +17,13 @@ class Validator {
   static isValidateOrder(orderList) {
     let hasOnlyDrink = false;
     let menuCount = 0;
-    const userOrderList = orderList.split(',');
-    for (const order of userOrderList) {
+    for (const order of orderList.split(',')) {
       const [menuItem, count] = order.split('-');
       menuCount += Number(count);
-      if (!this.isExist(menuItem) || isNaN(count))
-        throw new Error(
-          ERROR_MESSAGE.INVALID_MENU_LIST_INPUT,
-        );
+      if (!this.isExist(menuItem) || isNaN(count)) throw new Error(ERROR_MESSAGE.INVALID_MENU_LIST_INPUT);
       if (!this.onlyDrink(menuItem)) hasOnlyDrink = true;
     }
-    if (!hasOnlyDrink || menuCount > 20)
-      throw new Error(ERROR_MESSAGE.INVALID_MENU_LIST_INPUT);
-    if (!this.isDuplicated(userOrderList))
-      throw new Error(ERROR_MESSAGE.INVALID_MENU_LIST_INPUT);
-
+    if (!hasOnlyDrink || menuCount > 20 || !this.isDuplicated(orderList.split(','))) throw new Error(ERROR_MESSAGE.INVALID_MENU_LIST_INPUT);
     return true;
   }
 

@@ -45,6 +45,7 @@ class restaurant {
       this.User.getOrderMenuList(),
     );
 
+    // 메뉴들 미리 보여주는 메세지
     OutputView.printPreviewMessage(
       this.RestaurantController.getCustomerReservationDate(),
     );
@@ -61,6 +62,7 @@ class restaurant {
       this.RestaurantController.getTotalPrice(),
     );
 
+    // 이벤트 결과 출력
     OutputView.printPresentEvent(this.RestaurantController.presentEvent());
     OutputView.printTotalEventResult(
       this.RestaurantController.christmasDayEvent(),
@@ -70,16 +72,19 @@ class restaurant {
       this.RestaurantController.presentEvent(),
     );
 
+    // 이벤트 할인 총 금액 출력
     OutputView.printTotalBenefitPrice(
       this.RestaurantController.getTotalbenefit(),
     );
 
+    // 할인 적용 금액 출력
     OutputView.printAfterDiscount(
       this.RestaurantController.getTotalPrice(),
       this.RestaurantController.getTotalbenefit(),
       this.RestaurantController.presentEvent(),
     );
 
+    // 벳지 이벤트 결과 출력
     OutputView.printBedge(this.RestaurantController.bedgeEvent());
   }
 }
